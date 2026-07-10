@@ -1,35 +1,16 @@
 from fastapi import FastAPI
-from sqlalchemy import text
 
-from app.database.database import engine
+from app.api.v1.auth import router as auth_router
 
 app = FastAPI(
-    title="Distributed Job Scheduler API",
+    title="Distributed Job Scheduler",
     version="1.0.0"
 )
 
 @app.get("/")
 def root():
     return {
-        "message": "Distributed Job Scheduler API is running!"
+        "message": "Distributed Job Scheduler API"
     }
 
-@app.get("/health")
-def health():
-    return {
-        "status": "healthy"
-    }
-
-@app.get("/db-test")
-def db_test():
-    try:
-        with engine.connect() as connection:
-            connection.execute(text("SELECT 1"))
-        return {
-            "database": "Connected Successfully"
-        }
-    except Exception as e:
-        return {
-            "database": "Connection Failed",
-            "error": str(e)
-        }
+app.include_router(auth_router)
