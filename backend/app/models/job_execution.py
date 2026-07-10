@@ -1,14 +1,21 @@
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Text
-from sqlalchemy.orm import relationship
+from sqlalchemy import (
+    Column,
+    Integer,
+    ForeignKey,
+    DateTime,
+    Text,
+)
+
 from sqlalchemy.sql import func
 
 from app.database.database import Base
 
 
 class JobExecution(Base):
+
     __tablename__ = "job_executions"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
 
     job_id = Column(
         Integer,
@@ -22,21 +29,21 @@ class JobExecution(Base):
         nullable=True,
     )
 
-    status = Column(String(30), nullable=False)
+    status = Column(
+        Text,
+        nullable=False,
+    )
 
-    started_at = Column(DateTime(timezone=True))
-
-    completed_at = Column(DateTime(timezone=True))
-
-    execution_time_ms = Column(Integer, default=0)
-
-    error_message = Column(Text)
-
-    created_at = Column(
+    started_at = Column(
         DateTime(timezone=True),
         server_default=func.now(),
     )
 
-    worker = relationship("Worker", back_populates="job_executions")
+    completed_at = Column(
+        DateTime(timezone=True),
+        nullable=True,
+    )
 
-    job = relationship("Job")
+    execution_time_ms = Column(Integer)
+
+    error_message = Column(Text)
