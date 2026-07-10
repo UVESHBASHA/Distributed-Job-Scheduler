@@ -1,4 +1,5 @@
 from sqlalchemy import Boolean, Column, DateTime, Integer, String
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 from app.database.database import Base
@@ -30,3 +31,5 @@ class User(Base):
         server_default=func.now(),
         onupdate=func.now(),
     )
+
+    organizations = relationship("Organization", back_populates="owner")

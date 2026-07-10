@@ -33,4 +33,5 @@ class Project(Base):
         onupdate=func.now(),
     )
 
-    organization = relationship("Organization")
+    organization = relationship("Organization", back_populates="projects")
+    queues = relationship("Queue", back_populates="project", cascade="all, delete-orphan")

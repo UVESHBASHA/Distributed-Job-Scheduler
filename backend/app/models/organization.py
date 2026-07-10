@@ -31,4 +31,5 @@ class Organization(Base):
         onupdate=func.now(),
     )
 
-    owner = relationship("User")
+    owner = relationship("User", back_populates="organizations")
+    projects = relationship("Project", back_populates="organization", cascade="all, delete-orphan")
