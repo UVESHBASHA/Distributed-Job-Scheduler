@@ -10,6 +10,8 @@ class JobCreate(BaseModel):
 
     name: str
 
+    idempotency_key: str | None = None
+
     job_type: str = "IMMEDIATE"
 
     payload: dict[str, Any] | None = None
@@ -44,3 +46,7 @@ class JobResponse(BaseModel):
     model_config = {
         "from_attributes": True
     }
+
+
+class BatchJobCreate(BaseModel):
+    jobs: list[JobCreate]

@@ -1,0 +1,29 @@
+.workers-page {
+  padding: 40px 64px;
+}
+
+.workers-page h1 {
+  font-size: 38px;
+  margin-bottom: 32px;
+}
+
+.worker-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.worker-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.worker-card h3 {
+  margin-top: 0;
+}
+
+.worker-card p {
+  margin: 8px 0;
+}

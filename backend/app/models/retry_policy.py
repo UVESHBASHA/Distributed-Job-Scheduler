@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
+from app.constants import RetryStrategy
 from app.database.database import Base
 
 
@@ -11,7 +12,11 @@ class RetryPolicy(Base):
 
     name = Column(String(100), nullable=False)
 
-    strategy = Column(String(30), nullable=False)
+    strategy = Column(
+        String(30),
+        nullable=False,
+        default=RetryStrategy.NONE.value,
+    )
 
     max_retries = Column(Integer, default=3)
 

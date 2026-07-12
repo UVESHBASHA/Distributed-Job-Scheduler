@@ -12,10 +12,23 @@ def create_new_job(
     db: Session,
     job: JobCreate,
 ):
+    if job.idempotency_key:
+        existing_job = (
+            db.query(Job)
+            .filter(
+                Job.idempotency_key
+                == job.idempotency_key
+            )
+            .first()
+        )
+
+        if existing_job:
+            return existing_job
 
     new_job = Job(
         queue_id=job.queue_id,
         name=job.name,
+        idempotency_key=job.idempotency_key,
         job_type=job.job_type,
         payload=job.payload,
         priority=job.priority,

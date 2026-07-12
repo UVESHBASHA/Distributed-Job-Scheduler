@@ -6,6 +6,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.sql import func
 
+from app.constants import WorkerStatus
 from app.database.database import Base
 
 
@@ -20,7 +21,7 @@ class Worker(Base):
 
     status = Column(
         String(30),
-        default="ACTIVE"
+        default=WorkerStatus.ACTIVE.value
     )
 
     started_at = Column(

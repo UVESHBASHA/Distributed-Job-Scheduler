@@ -1,0 +1,32 @@
+.navbar {
+  height: 64px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  box-sizing: border-box;
+}
+
+.navbar h2 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.profile-button {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: #1769ff;
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-button:hover {
+  background: #0f55d9;
+}

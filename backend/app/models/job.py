@@ -9,6 +9,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
+from app.constants import JobStatus
 from app.database.database import Base
 
 
@@ -25,6 +26,13 @@ class Job(Base):
 
     name = Column(String(150), nullable=False)
 
+    idempotency_key = Column(
+        String(255),
+        unique=True,
+        nullable=True,
+        index=True,
+    )
+
     job_type = Column(
         String(30),
         default="IMMEDIATE",
@@ -34,7 +42,7 @@ class Job(Base):
 
     status = Column(
         String(30),
-        default="QUEUED",
+        default=JobStatus.QUEUED.value,
     )
 
     priority = Column(
@@ -65,6 +73,21 @@ class Job(Base):
         DateTime(timezone=True),
         server_default=func.now(),
         onupdate=func.now(),
+    )
+
+    claimed_by = Column(
+        Integer,
+        ForeignKey(
+            "workers.id",
+            ondelete="SET NULL",
+            name="fk_jobs_worker",
+        ),
+        nullable=True,
+    )
+
+    claimed_at = Column(
+        DateTime(timezone=True),
+        nullable=True,
     )
 
     queue = relationship("Queue", back_populates="jobs")
